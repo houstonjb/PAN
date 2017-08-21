@@ -301,9 +301,9 @@
 			"dependsOn": [
 				"[concat('Microsoft.Compute/availabilitySets/', parameters('avSetName'))]",
 				"[concat('Microsoft.Network/publicIPAddresses/', parameters('mgmtPublicIPName'), copyindex())]",
-				"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-nic0')]",
-				"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-nic1')]",
-				"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-nic2')]"
+				"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-eth0')]",
+				"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-eth1')]",
+				"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-eth2')]"
 			],
 			"copy": {
 				"name": "vmLoop",
