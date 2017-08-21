@@ -9,8 +9,6 @@
 				"description": "Deployment location"
 			}
 		},
-
-		// vnet parameters
 		"virtualNetworkRG": {
 			"type": "string",
 			"metadata": {
@@ -29,8 +27,6 @@
 				"description": "Name of the subnet"
 			}
 		},
-		
-		// load balancer parameters
 		"loadBalancerName": {
 			"type": "string",
 			"metadata": {
@@ -45,9 +41,7 @@
 	},
 
 	"resources": [
-
-		// Setup load balancer
-		{ 
+		{
 			"apiVersion": "2015-05-01-preview",
 			"type": "Microsoft.Network/loadBalancers",
 			"name": "[parameters('loadBalancerName')]",
@@ -60,7 +54,7 @@
 							"subnet": {
 								"id": "[concat(variables('vnetId'),'/subnets/',parameters ('subnetName'))]"
 							},
-							"privateIPAllocationMethod": "Dynamic" 
+							"privateIPAllocationMethod": "Dynamic"
 						}
 					}
 				],
@@ -113,6 +107,3 @@
 		},
 	}
 }
-
-
-
