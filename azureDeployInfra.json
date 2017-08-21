@@ -17,7 +17,7 @@
 			"defaultValue": "ENTER A GLOBALLY UNIQUE NAME HERE"
 		},
 
-		// NSG Settings 1
+		// NSG Settings
 		"networkSecurityGroupName": {
 			"type": "string",
 			"defaultValue": "test-usw-panmgmt-nsg",
