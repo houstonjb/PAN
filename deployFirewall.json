@@ -28,7 +28,11 @@
 				"description": "Deployment location"
 			}
 		},
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> master_github
 		// vm parameters
 		"vmCount": {
 			"type": "int",
@@ -168,7 +172,11 @@
 			"metadata": {
 				"description": "Name of the inbound load balancer"
 			}
+<<<<<<< HEAD
 		},	
+=======
+		},
+>>>>>>> master_github
 		// public IP parameters
 		"mgmtPublicIPDns": {
 			"type": "string",
@@ -189,7 +197,11 @@
 	"variables": {
 		"vnetId": "[resourceId(parameters('virtualNetworkRG'), 'Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
 		"lbId": "[resourceId('Microsoft.Network/loadBalancers/', parameters('loadBalancerName'))]",
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> master_github
 		"deployVmURL" : "[concat(parameters('baseUrl'),'/deployVm-', parameters('authenticationType'), '-bs-', parameters('bootstrap'),'.json')]",
 		"imagePublisher": "paloaltonetworks",
 		"imageOffer": "vmseries1",
@@ -199,15 +211,25 @@
 	"resources": [
 
 		// availabilitySets
+<<<<<<< HEAD
 		{ 
+=======
+		{
+>>>>>>> master_github
 			"apiVersion": "2015-05-01-preview",
 			"type": "Microsoft.Compute/availabilitySets",
 			"name": "[parameters('avSetName')]",
 			"location": "[parameters('location')]"
 		},
+<<<<<<< HEAD
 		
 		// Setup Mgmt PublicIPs[x]
 		{ 
+=======
+
+		// Setup Mgmt PublicIPs[x]
+		{
+>>>>>>> master_github
 			"apiVersion": "2015-06-15",
 			"type": "Microsoft.Network/publicIPAddresses",
 			"name": "[concat(parameters('mgmtPublicIPName'), copyindex())]",
@@ -226,7 +248,11 @@
 
 		// Setup Mgmt Network Interface
 		{
+<<<<<<< HEAD
 			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-nic0')]",
+=======
+			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-eth0')]",
+>>>>>>> master_github
 			"type": "Microsoft.Network/networkInterfaces",
 			"location": "[parameters('location')]",
 			"apiVersion": "2015-06-15",
@@ -236,7 +262,11 @@
 			"copy": {
 				"name": "nicLoop",
 				"count": "[parameters('vmCount')]"
+<<<<<<< HEAD
 			},			
+=======
+			},
+>>>>>>> master_github
 			"properties": {
 				"ipConfigurations": [
 					{
@@ -257,14 +287,22 @@
 
 		// Setup Untrusted (external) Network Interface
 		{
+<<<<<<< HEAD
 			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-nic1')]",
+=======
+			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-eth1')]",
+>>>>>>> master_github
 			"type": "Microsoft.Network/networkInterfaces",
 			"location": "[parameters('location')]",
 			"apiVersion": "2015-06-15",
 			"copy": {
 				"name": "nicLoop",
 				"count": "[parameters('vmCount')]"
+<<<<<<< HEAD
 			},			
+=======
+			},
+>>>>>>> master_github
 			"properties": {
 				"enableIPForwarding": true,
 				"ipConfigurations": [
@@ -283,7 +321,11 @@
 
 		// Setup Trusted (internal) Network Interface
 		{
+<<<<<<< HEAD
 			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-nic2')]",
+=======
+			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-eth2')]",
+>>>>>>> master_github
 			"type": "Microsoft.Network/networkInterfaces",
 			"location": "[parameters('location')]",
 			"apiVersion": "2015-06-15",
@@ -382,6 +424,9 @@
 		}
 	]
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> master_github

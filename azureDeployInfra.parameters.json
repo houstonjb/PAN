@@ -11,6 +11,7 @@
     "storageName": {
       "value": "panstorage"
     },
+<<<<<<< HEAD
 	"mgmtPublicIPDns" : {
 		"value" : "aegpanmgmttest"
 	  },
@@ -22,6 +23,22 @@
 	  },
 	"authenticationType" : {
 		"value" : "sshPublicKey"
+=======
+  	"mgmtPublicIPDns" : {
+  		"value" : "aegpanmgmttest"
+    },
+  	"networkSecurityGroupInboundIP" : {
+  		"value" : "38.122.21.160/29"
+	  },
+  	"firewallModel" : {
+  		"value" : "bundle1"
+	  },
+  	"authenticationType" : {
+  		"value" : "sshPublicKey"
+	  },
+  	"virtualMachineName" : {
+  		"value" : "uswaztestpan"
+>>>>>>> master_github
 	  }
   }
 }
