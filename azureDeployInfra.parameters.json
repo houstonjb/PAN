@@ -22,6 +22,9 @@
 	  },
 	"authenticationType" : {
 		"value" : "sshPublicKey"
+	  },
+	"virtualMachineName" : {
+		"value" : "uswaztestpan"
 	  }
   }
 }

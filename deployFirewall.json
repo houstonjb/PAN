@@ -28,7 +28,7 @@
 				"description": "Deployment location"
 			}
 		},
-		
+
 		// vm parameters
 		"vmCount": {
 			"type": "int",
@@ -168,7 +168,7 @@
 			"metadata": {
 				"description": "Name of the inbound load balancer"
 			}
-		},	
+		},
 		// public IP parameters
 		"mgmtPublicIPDns": {
 			"type": "string",
@@ -189,7 +189,7 @@
 	"variables": {
 		"vnetId": "[resourceId(parameters('virtualNetworkRG'), 'Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
 		"lbId": "[resourceId('Microsoft.Network/loadBalancers/', parameters('loadBalancerName'))]",
-		
+
 		"deployVmURL" : "[concat(parameters('baseUrl'),'/deployVm-', parameters('authenticationType'), '-bs-', parameters('bootstrap'),'.json')]",
 		"imagePublisher": "paloaltonetworks",
 		"imageOffer": "vmseries1",
@@ -199,15 +199,15 @@
 	"resources": [
 
 		// availabilitySets
-		{ 
+		{
 			"apiVersion": "2015-05-01-preview",
 			"type": "Microsoft.Compute/availabilitySets",
 			"name": "[parameters('avSetName')]",
 			"location": "[parameters('location')]"
 		},
-		
+
 		// Setup Mgmt PublicIPs[x]
-		{ 
+		{
 			"apiVersion": "2015-06-15",
 			"type": "Microsoft.Network/publicIPAddresses",
 			"name": "[concat(parameters('mgmtPublicIPName'), copyindex())]",
@@ -226,7 +226,7 @@
 
 		// Setup Mgmt Network Interface
 		{
-			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-nic0')]",
+			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-eth0')]",
 			"type": "Microsoft.Network/networkInterfaces",
 			"location": "[parameters('location')]",
 			"apiVersion": "2015-06-15",
@@ -236,7 +236,7 @@
 			"copy": {
 				"name": "nicLoop",
 				"count": "[parameters('vmCount')]"
-			},			
+			},
 			"properties": {
 				"ipConfigurations": [
 					{
@@ -257,14 +257,14 @@
 
 		// Setup Untrusted (external) Network Interface
 		{
-			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-nic1')]",
+			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-eth1')]",
 			"type": "Microsoft.Network/networkInterfaces",
 			"location": "[parameters('location')]",
 			"apiVersion": "2015-06-15",
 			"copy": {
 				"name": "nicLoop",
 				"count": "[parameters('vmCount')]"
-			},			
+			},
 			"properties": {
 				"enableIPForwarding": true,
 				"ipConfigurations": [
@@ -283,7 +283,7 @@
 
 		// Setup Trusted (internal) Network Interface
 		{
-			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-nic2')]",
+			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-eth2')]",
 			"type": "Microsoft.Network/networkInterfaces",
 			"location": "[parameters('location')]",
 			"apiVersion": "2015-06-15",
@@ -382,6 +382,3 @@
 		}
 	]
 }
-
-
-
