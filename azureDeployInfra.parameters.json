@@ -11,20 +11,20 @@
     "storageName": {
       "value": "panstorage"
     },
-	"mgmtPublicIPDns" : {
-		"value" : "aegpanmgmttest"
+  	"mgmtPublicIPDns" : {
+  		"value" : "aegpanmgmttest"
+    },
+  	"networkSecurityGroupInboundIP" : {
+  		"value" : "38.122.21.160/29"
 	  },
-	"networkSecurityGroupInboundIP" : {
-		"value" : "38.122.21.160/29"
+  	"firewallModel" : {
+  		"value" : "bundle1"
 	  },
-	"firewallModel" : {
-		"value" : "bundle1"
+  	"authenticationType" : {
+  		"value" : "sshPublicKey"
 	  },
-	"authenticationType" : {
-		"value" : "sshPublicKey"
-	  },
-	"virtualMachineName" : {
-		"value" : "uswaztestpan"
+  	"virtualMachineName" : {
+  		"value" : "uswaztestpan"
 	  }
   }
 }
