@@ -173,11 +173,7 @@
 			"metadata": {
 				"description": "Name prefix of VM-Series VM in the Azure portal"
 			},
-<<<<<<< HEAD
-			"defaultValue": "uswaztestpan01"
-=======
 			"defaultValue": "uswaztestpan"
->>>>>>> master_github
 		},
 		"firewallVmSize": {
 			"type": "string",
