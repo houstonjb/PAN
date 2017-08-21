@@ -20,7 +20,7 @@
 		// NSG Settings
 		"networkSecurityGroupName": {
 			"type": "string",
-			"defaultValue": "mgmt-nsg",
+			"defaultValue": "test-usw-panmgmt-nsg",
 			"metadata": {
 				"description": "Network Security Group Name"
 			}
@@ -39,7 +39,7 @@
 			"metadata": {
 				"description": "Name of the availability set for outbound firewall"
 			},
-			"defaultValue": "outbound-avset"
+			"defaultValue": "pan-avset"
 		},
 
 		// Storage Settings
@@ -60,70 +60,70 @@
 		// VNet settings
 		"virtualNetworkName": {
 			"type": "string",
-			"defaultValue": "vnet",
+			"defaultValue": "test-usw-vnet",
 			"metadata": {
 				"description": "Virtual Network Name"
 			}
 		},
 		"virtualNetworkAddressPrefix": {
 			"type": "string",
-			"defaultValue": "10.0.0.0/16",
+			"defaultValue": "10.162.0.0/16",
 			"metadata": {
 				"description": "CIDR for Virtual Network"
 			}
 		},
 		"mgmtSubnetName": {
 			"type": "string",
-			"defaultValue": "Mgmt",
+			"defaultValue": "test-usw-panmgmt-sn",
 			"metadata": {
 				"description": "Subnet for Management Network"
 			}
 		},
 		"mgmtSubnetPrefix": {
 			"type": "string",
-			"defaultValue": "10.0.0.0/24",
+			"defaultValue": "10.162.0.0/24",
 			"metadata": {
 				"description": "CIDR for Management Network"
 			}
 		},
 		"untrustedSubnetName": {
 			"type": "string",
-			"defaultValue": "Untrust",
+			"defaultValue": "test-usw-untrust-sn",
 			"metadata": {
 				"description": "Subnet for Untrusted Network"
 			}
 		},
 		"untrustedSubnetPrefix": {
 			"type": "string",
-			"defaultValue": "10.0.1.0/24",
+			"defaultValue": "10.162.1.0/24",
 			"metadata": {
 				"description": "CIDR for Untrusted Network"
 			}
 		},
 		"trustedSubnetName": {
 			"type": "string",
-			"defaultValue": "Trust",
+			"defaultValue": "test-usw-trust-sn",
 			"metadata": {
 				"description": "Subnet for Trusted Network"
 			}
 		},
 		"trustedSubnetPrefix": {
 			"type": "string",
-			"defaultValue": "10.0.2.0/24",
+			"defaultValue": "10.162.2.0/24",
 			"metadata": {
 				"description": "CIDR for Trusted Network"
 			}
 		},
 		"backendSubnetName": {
 			"type": "string",
-			"defaultValue": "Backend",
+			"defaultValue": "test-usw-backend-sn",
 			"metadata": {
 				"description": "Subnet for Backend WWW Network"
 			}
 		},
 		"backendSubnetPrefix": {
 			"type": "string",
-			"defaultValue": "10.0.3.0/24",
+			"defaultValue": "10.162.3.0/24",
 			"metadata": {
 				"description": "CIDR for Backend WWW Network"
 			}
@@ -135,22 +135,22 @@
 			"metadata": {
 				"description": "Name prefix of public IP resource for Management interface of VM-Series firewall."
 			},
-			"defaultValue": "mgmt-pip"
+			"defaultValue": "pan-test-usw-mgmt-pip"
 		},
-		
+
 		// Load Balancers setttings
 		"loadBalancerName": {
 			"type": "string",
 			"metadata": {
 				"description": "Name for the outbound load balancer resource."
 			},
-			"defaultValue": "outbound-lb"
+			"defaultValue": "test-usw-outbound-int-lb"
 		},
 		"routeTableName": {
 			"type": "string",
-			"defaultValue": "routes-rt",
+			"defaultValue": "test-usw-backend-rt",
 			"metadata": {
-				"description": "This is the name of the route table"
+				"description": "This is the name of the route table for the backend subnet"
 			}
 		},
 
@@ -173,7 +173,7 @@
 			"metadata": {
 				"description": "Name prefix of VM-Series VM in the Azure portal"
 			},
-			"defaultValue": "series-vm"
+			"defaultValue": "uswaztestpan01"
 		},
 		"firewallVmSize": {
 			"type": "string",
@@ -224,7 +224,7 @@
 			}
 		}
 	},
-	
+
 	"variables": {
 		"baseUrl"              : "https://raw.githubusercontent.com/houstonjb/PAN/master",
 		"deployStorageURL"     : "[concat(variables('baseUrl'),'/deployStorage.json')]",
@@ -241,7 +241,7 @@
 	"resources": [
 
 		// Deploy Storage
-		{	
+		{
 			"name": "deployStorage",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -266,7 +266,7 @@
 		},
 
 		// Deploy NSG
-		{	
+		{
 			"name": "deployNsg",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -294,7 +294,7 @@
 		},
 
 		// Deploy VNet
-		{	
+		{
 			"name": "deployVnet",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -346,7 +346,7 @@
 		},
 
 		// Deploy outbound load balancer
-		{	
+		{
 			"name": "deployOutboundLoadBalancer",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -380,7 +380,7 @@
 		},
 
 		// Deploy outbound Firewall
-		{	
+		{
 			"name": "deployOutboundFirewall",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -469,7 +469,7 @@
 						"name": "Default",
 						"properties": {
 							"addressPrefix": "0.0.0.0/0",
-							"nextHopType": "VirtualAppliance", 
+							"nextHopType": "VirtualAppliance",
 							"nextHopIpAddress": "[reference('deployOutboundLoadBalancer').outputs.LoadBalancerFrontEndIp.value]"
 						}
 					}
