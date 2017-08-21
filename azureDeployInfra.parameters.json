@@ -18,7 +18,7 @@
 		"value" : "38.122.21.160/29"
 	  },
 	"firewallModel" : {
-		"value" : "budnle1"
+		"value" : "bundle1"
 	  },
 	"authenticationType" : {
 		"value" : "sshPublicKey"
