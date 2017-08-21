@@ -46,7 +46,9 @@
 		}
 	},
 
-	"variables": {},
+	"variables": {
+        "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]"
+	},
 
 	"resources": [
 		{
@@ -69,7 +71,18 @@
 				"osProfile": {
 					"computerName": "[parameters('virtualMachineName')]",
 					"adminUsername": "[parameters('adminUsername')]",
-					"adminPassword": "[parameters('adminPassword')]"
+					"adminPassword": "[parameters('adminPassword')]",
+					"linuxConfiguration" : {
+						"ssh" : {
+							"publicKeys" : [
+								{
+									"path" : "[variables('sshKeyPath')]",
+									"keyData" : "[parameters('sshKey')]"
+								}
+							]
+						}
+
+					}
 				},
 				"storageProfile": {
 					"imageReference": {

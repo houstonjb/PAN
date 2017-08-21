@@ -425,6 +425,9 @@
 					"sshKey": {
 						"value": "[parameters('sshPublicKey')]"
 					},
+					"authenticationType": {
+						"value": "[parameters('authenticationType')]"
+					}
 				}
 			}
 		},
