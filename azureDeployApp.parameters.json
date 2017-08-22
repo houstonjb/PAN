@@ -24,7 +24,7 @@
       "value": "uswaztestvm"
     },
     "backendVmSize" : {
-      "value": "Standard_A1_v2"
+      "value": "Standard_A1"
     },
   	"authenticationType" : {
   		"value" : "sshPublicKey"
