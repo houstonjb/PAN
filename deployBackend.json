@@ -21,8 +21,6 @@
 				"description": "Deployment location"
 			}
 		},
-
-		// Vnet parameters
 		"virtualNetworkRG": {
 			"type": "string",
 			"metadata": {
@@ -49,21 +47,17 @@
 				"description": "Name of the frontend subnet"
 			}
 		},
-
-		// load balancer parameters
 		"loadBalancerName": {
 			"type": "string",
 			"metadata": {
 				"description": "Name of the inbound load balancer"
 			}
 		},
-
-		// VM parameters
 		"vmCount": {
 			"type": "int",
 			"maxValue": 5,
 			"minValue": 1,
-			"defaultValue": 2,
+			"defaultValue": 1,
 			"metadata": {
 				"description": "Number of backend VM instances"
 			}
@@ -134,20 +128,17 @@
 	},
 
 	"resources": [
-		// availability set
-		{ 
+		{
 			"apiVersion": "2015-05-01-preview",
 			"type": "Microsoft.Compute/availabilitySets",
 			"name": "[parameters('avSetName')]",
 			"location": "[parameters('location')]"
 
 		},
-		
-		// network interface[]
 		{
 			"apiVersion": "2015-05-01-preview",
 			"type": "Microsoft.Network/networkInterfaces",
-			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-nic')]",
+			"name": "[concat(parameters('virtualMachineName'), copyindex(), '-eth0')]",
 			"location": "[parameters('location')]",
 			"copy": {
 				"name": "nicLoop",
@@ -171,9 +162,7 @@
 				]
 			}
 		},
-		
-		// virtualMachines[]
-		{ 
+		{
 				"apiVersion": "2015-06-15",
 				"type": "Microsoft.Compute/virtualMachines",
 				"name": "[concat(parameters('virtualMachineName'), copyindex())]",
@@ -183,7 +172,7 @@
 				},
 				"location": "[parameters('location')]",
 				"dependsOn": [
-					"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-nic')]",
+					"[concat('Microsoft.Network/networkInterfaces/', parameters('virtualMachineName'), copyindex(), '-eth0')]",
 					"[concat('Microsoft.Compute/availabilitySets/', parameters('avSetName'))]"
 				],
 				"properties": {
@@ -196,7 +185,17 @@
 					"osProfile": {
 						"computerName": "[concat(parameters('virtualMachineName'), copyIndex())]",
 						"adminUsername": "[parameters('adminUsername')]",
-						"adminPassword": "[parameters('adminPassword')]"
+						"adminPassword": "[parameters('adminPassword')]",
+						"linuxConfiguration" : {
+							"ssh" : {
+								"publicKeys" : [
+									{
+										"path" : "[variables('sshKeyPath')]",
+										"keyData" : "[parameters('sshKey')]"
+									}
+								]
+							}
+						}
 					},
 					"storageProfile": {
 						"imageReference": {
@@ -217,7 +216,7 @@
 					"networkProfile": {
 						"networkInterfaces": [
 							{
-								"id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('virtualMachineName'), copyindex(),'-nic'))]"
+								"id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('virtualMachineName'), copyindex(),'-eth0'))]"
 							}
 						]
 					},
@@ -229,9 +228,7 @@
 					}
 				}
 		},
-		
-		// virtualMachines/extensions[]
-		{ 
+		{
 				"name": "[concat(parameters('virtualMachineName'), copyindex(), '/installcustomscript')]",
 				"type": "Microsoft.Compute/virtualMachines/extensions",
 				"copy": {
@@ -257,6 +254,6 @@
 				}
 		}
 	],
-	
+
 	"outputs": {}
 }

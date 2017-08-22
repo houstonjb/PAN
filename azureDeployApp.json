@@ -2,7 +2,6 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		// App Settings
 		"appPrefix": {
 			"type": "string",
 			"metadata": {
@@ -10,8 +9,6 @@
 			},
 			"defaultValue": "a1"
 		},
-
-		// Availability Set Settings
 		"firewallAvsetName": {
 			"type": "string",
 			"metadata": {
@@ -26,8 +23,6 @@
 			},
 			"defaultValue": "backend-avset"
 		},
-
-		// Storage Settings
 		"storageName": {
 			"type": "string",
 			"metadata": {
@@ -48,21 +43,19 @@
 			},
 			"defaultValue": "Standard_LRS"
 		},
-
-		// Public Ip Settings
 		"gatewayPublicIPName": {
 			"type": "string",
 			"metadata": {
 				"description": "Name public IP resource for the application gateway."
 			},
-			"defaultValue": "gateway-pip"
+			"defaultValue": "pan-test-usw-pip"
 		},
 		"gatewayPublicIPDns" : {
 			"type": "string",
 			"metadata": {
 				"description": "DNS Name of public IP resource for the application gateway.  Name must be globally unique."
 			},
-			"defaultValue": "appgateway"
+			"defaultValue": "aegpantestapp"
 		},
 		"mgmtPublicIPName": {
 			"type": "string",
@@ -78,67 +71,62 @@
 			},
 			"defaultValue": "mgmt"
 		},
-
-		// VNet settings
 		"virtualNetworkRG": {
 			"type": "string",
+			"defaultValue": "[resourceGroup().name]",
 			"metadata": {
 				"description": "Resource Group of existing Virtual Network"
 			}
 		},
 		"virtualNetworkName": {
 			"type": "string",
-			"defaultValue": "vnet",
+			"defaultValue": "test-usw-vnet",
 			"metadata": {
 				"description": "Existing Virtual Network Name"
 			}
 		},
 		"mgmtSubnetName": {
 			"type": "string",
-			"defaultValue": "Mgmt",
+			"defaultValue": "test-usw-panmgmt-sn",
 			"metadata": {
 				"description": "Subnet for Management Network"
 			}
 		},
 		"untrustedSubnetName": {
 			"type": "string",
-			"defaultValue": "Untrust",
+			"defaultValue": "test-usw-untrust-sn",
 			"metadata": {
 				"description": "Subnet for Untrusted Network"
 			}
 		},
 		"trustedSubnetName": {
 			"type": "string",
-			"defaultValue": "Trust",
+			"defaultValue": "test-usw-trust-sn",
 			"metadata": {
 				"description": "Subnet for Trusted Network"
 			}
 		},
 		"backendSubnetName": {
 			"type": "string",
-			"defaultValue": "Backend",
+			"defaultValue": "test-usw-backend-sn",
 			"metadata": {
 				"description": "Subnet for Backend WWW Network"
 			}
 		},
-
-		// Load Balancer Settings
 		"inboundLoadBalancerName": {
 			"type": "string",
 			"metadata": {
 				"description": "Name for the inbound load balancer resource."
 			},
-			"defaultValue": "inbound-lb"
+			"defaultValue": "test-usw-inbound-ext-lb"
 		},
 		"backendLoadBalancerName": {
 			"type": "string",
 			"metadata": {
 				"description": "Name for the backend load balancer resource."
 			},
-			"defaultValue": "backend-lb"
+			"defaultValue": "test-usw-inbound-int-lb"
 		},
-
-		// VM settings
 		"firewallModel": {
 			"type": "string",
 			"defaultValue": "byol",
@@ -185,6 +173,7 @@
 			"type": "string",
 			"allowedValues": [
 				"Standard_A1",
+				"Standard_A1_v2",
 				"Standard_D1",
 				"Standard_D1_v2"
 			],
@@ -226,7 +215,7 @@
 			}
 		}
 	},
-	
+
 	"variables": {
 		"baseUrl"                  : "http://raw.githubusercontent.com/fullscale180/PAN/master",
 		"deployStorageURL"         : "[concat(variables('baseUrl'),'/deployStorage.json')]",
@@ -240,7 +229,7 @@
 
 		"apFirewallAvsetName"      : "[concat(parameters('appPrefix'), '-', parameters('firewallAvsetName'))]",
 		"apBackendAvsetName"       : "[concat(parameters('appPrefix'), '-', parameters('backendAvsetName'))]",
-		"apBackendVmName"          : "[concat(parameters('appPrefix'), '-', parameters('backendVmName'))]",
+		"apBackendVmName"          : "[concat(parameters('backendVmName'), parameters('appPrefix'))]",
 		"apFirewallVmName"         : "[concat(parameters('appPrefix'), '-', parameters('firewallVmName'))]",
 		"apInboundLoadBalancerName": "[concat(parameters('appPrefix'), '-', parameters('inboundLoadBalancerName'))]",
 		"apBackendLoadBalancerName": "[concat(parameters('appPrefix'), '-', parameters('backendLoadBalancerName'))]",
@@ -251,9 +240,7 @@
 	},
 
 	"resources": [
-
-		// Deploy Storage
-		{	
+		{
 			"name": "deployStorage",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -276,9 +263,7 @@
 				}
 			}
 		},
-
-		// Setup gateway PublicIP
-		{ 
+		{
 			"apiVersion": "2015-06-15",
 			"type": "Microsoft.Network/publicIPAddresses",
 			"name": "[variables('apGatewayPublicIPName')]",
@@ -290,9 +275,7 @@
 				}
 			}
 		},
-
-		// Deploy inbound load balancer
-		{	
+		{
 			"name": "deployInboundLoadBalancer",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -323,9 +306,7 @@
 				}
 			}
 		},
-
-		// Deploy backend load balancer
-		{	
+		{
 			"name": "deployBackendLoadBalancer",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -356,9 +337,7 @@
 				}
 			}
 		},
-
-		// Deploy Backend
-		{	
+		{
 			"name": "deployBackend",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -415,7 +394,7 @@
 		},
 
 		// Deploy inbound Firewall
-		{	
+		{
 			"name": "deployInboundFirewall",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
@@ -490,7 +469,7 @@
 		},
 
 		// Connect gateway Public IP to inbound load balancer
-		{ 
+		{
 			"apiVersion": "2015-05-01-preview",
 			"type": "Microsoft.Network/loadBalancers",
 			"name": "[variables('apInboundLoadBalancerName')]",
