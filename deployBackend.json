@@ -94,6 +94,7 @@
 			"type": "string",
 			"allowedValues": [
 				"Standard_A1",
+				"Standard_A1_v2",
 				"Standard_D1",
 				"Standard_D1_v2"
 			],
