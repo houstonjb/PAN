@@ -279,7 +279,6 @@
 			"apiVersion": "2015-01-01",
 			"dependsOn": [
 				"Microsoft.Resources/deployments/deployNsg",
-				"[concat('Microsoft.Network/routeTables/', parameters('routeTableName'))]"
 			],
 			"properties": {
 				"mode": "Incremental",
