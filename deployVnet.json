@@ -75,6 +75,13 @@
 			"metadata": {
 				"description": "backend WWW CIDR"
 			}
+		},
+		"routeTableName": {
+			"type": "string",
+			"defaultValue": "test-usw-backend-rt",
+			"metadata": {
+				"description": "This is the name of the route table for the backend subnet"
+			}
 		}
 	},
 	"variables": {
@@ -111,7 +118,10 @@
 			{
 				"name": "[parameters('backendSubnetName')]",
 				"properties": {
-					"addressPrefix": "[parameters('backendSubnetPrefix')]"
+					"addressPrefix": "[parameters('backendSubnetPrefix')]",
+					"routeTable": {
+						"id": "[resourceId('Microsoft.Network/routeTables', variables('routeTableName'))]"
+					}
 				}
 			},
 		]

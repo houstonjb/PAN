@@ -278,7 +278,8 @@
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2015-01-01",
 			"dependsOn": [
-				"Microsoft.Resources/deployments/deployNsg"
+				"Microsoft.Resources/deployments/deployNsg",
+				"[concat('Microsoft.Network/routeTables/', parameters('routeTableName'))]"
 			],
 			"properties": {
 				"mode": "Incremental",
@@ -319,6 +320,9 @@
 					},
 					"backendSubnetPrefix": {
 						"value": "[parameters('backendSubnetPrefix')]"
+					},
+					"routeTableName": {
+						"value": "[parameters('routeTableName')]"
 					}
 				}
 			}

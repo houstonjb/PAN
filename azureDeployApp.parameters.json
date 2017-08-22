@@ -15,7 +15,7 @@
       "value": "AdminUser"
     },
     "sshPublicKey": {
-      "value": "AAAAB3NzaC1yc2EAAAADAQABAAABAQDXmAim7HB3Zw40srt9vsOde+r6Uco4u9fsK3ps0i0xS9jTssC2LzRzs1z8O5Fvqz09ptk1qm0gmgFBDAyL0LZk3MkpYqt4ppcAeyaUTDTDYszsq0nu5rouaF+uMoPAdA4dj7utAnfDutwDDxuhQ0nG32/WX1rYrDDbhS8/Q82yvUXJE3JM+/mXuCq/CMbe0DjHYJfKQs7uGA043RcoA3uMlZmNua08fTWreoHJJYsi2H5ZkKxLIAFngbn1OdeAUgNJTw8aO9C6xAxjXEmDiJfDyIhB61oRwBLuWvB27B2Qn20PwZeFl3f/jMJC1GIraq4o+bYrhFeaiYSUcjhpa5wp"
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXmAim7HB3Zw40srt9vsOde+r6Uco4u9fsK3ps0i0xS9jTssC2LzRzs1z8O5Fvqz09ptk1qm0gmgFBDAyL0LZk3MkpYqt4ppcAeyaUTDTDYszsq0nu5rouaF+uMoPAdA4dj7utAnfDutwDDxuhQ0nG32/WX1rYrDDbhS8/Q82yvUXJE3JM+/mXuCq/CMbe0DjHYJfKQs7uGA043RcoA3uMlZmNua08fTWreoHJJYsi2H5ZkKxLIAFngbn1OdeAUgNJTw8aO9C6xAxjXEmDiJfDyIhB61oRwBLuWvB27B2Qn20PwZeFl3f/jMJC1GIraq4o+bYrhFeaiYSUcjhpa5wp hbrignano@LAXFIGITGTFM.local"
     },
     "password": {
       "value": "P@ssword1234"
