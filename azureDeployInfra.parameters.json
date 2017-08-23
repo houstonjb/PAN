@@ -21,7 +21,7 @@
   		"value" : "bundle1"
 	  },
   	"authenticationType" : {
-  		"value" : "sshPublicKey"
+  		"value" : "password"
 	  },
   	"firewallVmName" : {
   		"value" : "uswaztestpan"

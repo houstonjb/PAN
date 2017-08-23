@@ -118,10 +118,7 @@
 			{
 				"name": "[parameters('backendSubnetName')]",
 				"properties": {
-					"addressPrefix": "[parameters('backendSubnetPrefix')]",
-					"routeTable": {
-						"id": "[resourceId('Microsoft.Network/routeTables', parameters('routeTableName'))]"
-					}
+					"addressPrefix": "[parameters('backendSubnetPrefix')]"
 				}
 			},
 		]
